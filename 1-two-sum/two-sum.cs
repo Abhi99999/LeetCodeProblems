@@ -12,6 +12,6 @@ public class Solution {
             else if(!map.ContainsKey(num))
             map.Add(num,i);
         }
-         return Array.Empty<int>();
+         return new int[1];
     }
 }
