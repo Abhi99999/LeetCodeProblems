@@ -1,32 +1,39 @@
 public class Solution {
     public double FindMedianSortedArrays(int[] nums1, int[] nums2) 
     {
-        int l1 = nums1.Length, l2 = nums2.Length;
-        int total = l1+l2;
-        int[] nums3 = new int[total];
-        int i = 0 , j = 0,size =0;
-        while(i < l1 && j < l2)
-        {
-            if(nums1[i] < nums2[j])
-                nums3[size++] = nums1[i++];
-                
-            else
-                nums3[size++] = nums2[j++];
-        }
-        while(i < l1)
-            nums3[size++] = nums1[i++];
-        while(j < l2)
-            nums3[size++] = nums2[j++];
+        int m = nums1.Length;
+        int n = nums2.Length;
+
+        if(m>n)
+            return FindMedianSortedArrays(nums2,nums1);
         
-        // Median calculation
-        if (total % 2 == 1)
+        int low = 0, high= m;
+        while(low <= high)
         {
-            return nums3[total / 2];
+            int px = (low+high)/2;  // mid of smalllest array
+            int py = (m+n+1)/2 - px; // mid of other array
+
+            // left side of array
+            int x1 = (px==0)? int.MinValue : nums1[px-1];
+            int x2 = (py==0)? int.MinValue : nums2[py-1];
+
+            // right side of array
+            int x3 = (px==m)? int.MaxValue : nums1[px];
+            int x4 = (py==n)? int.MaxValue : nums2[py];
+
+            // now checking x1,x2,x3,x4 
+            if(x1<=x4 && x2<=x3)
+            {
+                if((m+n)%2 == 1)
+                    return Math.Max(x1,x2);
+                else
+                    return ((Math.Max(x1,x2)+Math.Min(x3,x4))/2.0);
+            }
+            if(x1>x4)
+                high = px-1;
+            else
+                low = px+1;
         }
-        else
-        {
-            int mid = total / 2;
-            return (nums3[mid - 1] + nums3[mid]) / 2.0;
-        }
+        return -1;
     }
 }
