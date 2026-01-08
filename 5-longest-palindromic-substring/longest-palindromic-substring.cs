@@ -1,31 +1,34 @@
-public class Solution {
+public class Solution
+{
+    public string LongestPalindrome(string s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return "";
 
-    public bool solve(string str, int l, int r){
-        if(l >= r)
-            return true;
-        else if(str[l]==str[r])
-            return solve(str,l+1,r-1);
-        else
-            return false;
+        int start = 0, maxLength = 1;
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            Expand(s, i, i, ref start, ref maxLength);     // Odd length
+            Expand(s, i, i + 1, ref start, ref maxLength); // Even length
+        }
+
+        return s.Substring(start, maxLength);
     }
 
-    public string LongestPalindrome(string s) {
-        int maxLength = int.MinValue;
-        int startIndex = 0;
-        for(int i = 0; i< s.Length; i++)
+    private void Expand(string s, int left, int right,
+                        ref int start, ref int maxLength)
+    {
+        while (left >= 0 && right < s.Length && s[left] == s[right])
         {
-            for(int j = i; j< s.Length; j++)
+            int length = right - left + 1;
+            if (length > maxLength)
             {
-                if(solve(s,i,j))
-                {
-                    if(maxLength < j-i+1)
-                    {
-                        maxLength = j-i+1;
-                        startIndex = i;
-                    }
-                }
+                maxLength = length;
+                start = left;
             }
+            left--;
+            right++;
         }
-        return s.Substring(startIndex, maxLength);
     }
 }
