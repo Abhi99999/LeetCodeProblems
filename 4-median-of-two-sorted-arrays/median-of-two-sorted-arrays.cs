@@ -31,7 +31,7 @@ public class Solution {
             }
             if(x1>x4)
                 high = px-1;
-            else
+            else if(x2>x3)
                 low = px+1;
         }
         return -1;
