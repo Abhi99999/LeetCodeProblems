@@ -42,3 +42,5 @@
 	<li><code>p</code> contains only lowercase English letters, <code>&#39;.&#39;</code>, and&nbsp;<code>&#39;*&#39;</code>.</li>
 	<li>It is guaranteed for each appearance of the character <code>&#39;*&#39;</code>, there will be a previous valid character to match.</li>
 </ul>
+
+https://youtu.be/3vbBrl-LeDc?si=aQPrba4mnobEeNg_
